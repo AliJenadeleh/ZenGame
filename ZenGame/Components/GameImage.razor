@@ -1,0 +1,15 @@
+﻿<img src="/img/game/@(Src).jpg"
+     alt="Game Image"
+     id="gameImg"
+     draggable="true"
+     class="game-img @CssClasses" />
+
+@code {
+
+    [Parameter]
+    public string Src { get; set; } = "";
+
+    [Parameter]
+    public string CssClasses { get; set; } = "";
+
+}

@@ -1,0 +1,67 @@
+﻿@using ZenGame.Models;
+<div @ondragenter="DragIn"
+     @ondragleave="DragOut"
+     @ondrop="Option_OnDrop"
+     dropzone="move"
+     ondragover="event.preventDefault()"
+     class="option @CssClasses @DragCss">
+    <button @onclick="Option_OnSelected"
+            dropzone="move"
+            class="btn btn-dark w-100 h-100 @(IsAnswering ? "" : "disabled")">
+        @Caption
+    </button>
+</div>
+
+@code {
+
+    [Parameter]
+    public bool IsAnswering { get; set; } = false;
+
+    [Parameter]
+    public string CssClasses { get; set; } = "";
+
+    [Parameter]
+    public string Caption { get; set; } = "Not Set";
+
+    [Parameter]
+    public string DropCss { get; set; } = "";
+
+    public string DragCss { get; set; } = "";
+
+    [Parameter]
+    public EventCallback<OptionSelectedModel> OptionSelected { get; set; }
+
+    private async void DragIn()
+    {
+        DragCss = "option-drag-in";
+        StateHasChanged();
+    }
+
+    private async void DragOut()
+    {
+        DragCss = "";
+        StateHasChanged();
+    }
+
+    private async void Option_OnDrop()
+    {
+        await
+            OptionSelected.InvokeAsync(new OptionSelectedModel()
+            {
+                Answer = Caption,
+                DirectionCss = DropCss
+            });
+        DragCss = "";
+        StateHasChanged();
+    }
+
+    private async void Option_OnSelected()
+    {
+        await
+            OptionSelected.InvokeAsync(new OptionSelectedModel()
+            {
+                Answer = Caption,
+                DirectionCss = DropCss
+            });
+    }
+}

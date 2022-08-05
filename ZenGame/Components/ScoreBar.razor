@@ -1,0 +1,32 @@
+﻿<div class="score-bar score">
+
+
+        <span class="px-1">
+
+            [@Index / @Count]
+
+        </span>
+
+        <span>
+            SCORE :
+        </span>
+
+        <span class="px-1">
+            @Score
+        </span>
+
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int Score { get; set; }
+
+    [Parameter]
+    public int Index { get; set; }
+
+    [Parameter]
+    public int Count { get; set; }
+
+}
